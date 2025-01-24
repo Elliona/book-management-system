@@ -28,6 +28,8 @@ public class HelloWorld {
         this.authorRepository = authorRepository;
         this.publisherRepository = publisherRepository;
         this.seriesRepository = seriesRepository;
+
+        System.out.println("second World!");
     }
 
 
