@@ -30,6 +30,8 @@ public class HelloWorld {
         this.seriesRepository = seriesRepository;
 
         System.out.println("Hello World");
+
+        System.out.println("second World!");
     }
 
 
