@@ -1,0 +1,568 @@
+---
+openapi: 3.0.3
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/api/series/new":
+    post:
+      tags:
+        - series-controller
+      operationId: addSeries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SeriesDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SeriesDTO"
+  "/api/relation":
+    post:
+      tags:
+        - relation-controller
+      operationId: createRelation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RelationDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RelationDTO"
+    delete:
+      tags:
+        - relation-controller
+      operationId: deleteRelation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RelationDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RelationDTO"
+  "/api/publisher/new":
+    post:
+      tags:
+        - publisher-controller
+      operationId: savePublisher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PublisherDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PublisherDTO"
+  "/api/books/new":
+    post:
+      tags:
+        - book-controller
+      operationId: saveBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BookDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/BookDTO"
+  "/api/authors/new":
+    post:
+      tags:
+        - author-controller
+      operationId: saveAuthor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AuthorDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AuthorDTO"
+  "/api/series/edit/{seriesId}":
+    patch:
+      tags:
+        - series-controller
+      operationId: updateSeries
+      parameters:
+        - name: seriesId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SeriesDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SeriesDTO"
+  "/api/publisher/edit/{publisherId}":
+    patch:
+      tags:
+        - publisher-controller
+      operationId: updatePublisher
+      parameters:
+        - name: publisherId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PublisherDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PublisherDTO"
+  "/api/books/edit/{bookId}":
+    patch:
+      tags:
+        - book-controller
+      operationId: updateBook
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BookDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/BookDTO"
+  "/api/authors/edit/{authorID}":
+    patch:
+      tags:
+        - author-controller
+      operationId: updateAuthor
+      parameters:
+        - name: authorID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AuthorDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AuthorDTO"
+  "/api/series/search":
+    get:
+      tags:
+        - series-controller
+      operationId: getAllSeries
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/SeriesDTO"
+  "/api/series/search/{seriesId}":
+    get:
+      tags:
+        - series-controller
+      operationId: getSeries
+      parameters:
+        - name: seriesId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SeriesDTO"
+  "/api/publisher/search":
+    get:
+      tags:
+        - publisher-controller
+      operationId: getAllPublishers
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PublisherDTO"
+  "/api/publisher/search/{publisherId}":
+    get:
+      tags:
+        - publisher-controller
+      operationId: getPublisherById
+      parameters:
+        - name: publisherId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PublisherDTO"
+  "/api/books/search":
+    get:
+      tags:
+        - book-controller
+      operationId: getAllBooks
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/BookDTO"
+  "/api/books/search/for":
+    get:
+      tags:
+        - book-controller
+      operationId: getBookByPubEdiEntry
+      parameters:
+        - name: bookPublisherName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: bookEdition
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: bookEntryInSeries
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/api/books/search/by":
+    get:
+      tags:
+        - book-controller
+      operationId: getBookByAny
+      parameters:
+        - name: bookTitle
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: bookId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: bookEdition
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: bookPublisherName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: bookAuthor
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/api/authors/search":
+    get:
+      tags:
+        - author-controller
+      operationId: getAllAuthors
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/AuthorDTO"
+  "/api/authors/search/{authorId}":
+    get:
+      tags:
+        - author-controller
+      operationId: getAuthorById
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AuthorDTO"
+  "/api/series/delete/{seriesId}":
+    delete:
+      tags:
+        - series-controller
+      operationId: deleteSeries
+      parameters:
+        - name: seriesId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+  "/api/publisher/delete/{publisherId}":
+    delete:
+      tags:
+        - publisher-controller
+      operationId: deletePublisher
+      parameters:
+        - name: publisherId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+  "/api/books/delete/{bookId}":
+    delete:
+      tags:
+        - book-controller
+      operationId: deleteBook
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+  "/api/authors/delete/{authorId}":
+    delete:
+      tags:
+        - author-controller
+      operationId: deleteAuthor
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    SeriesDTO:
+      type: object
+      properties:
+        seriesId:
+          type: integer
+          format: int64
+        seriesName:
+          type: string
+        seriesNumberOfEntries:
+          type: integer
+          format: int32
+        seriesBooks:
+          type: array
+          items:
+            type: string
+    RelationDTO:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+        authorId:
+          type: integer
+          format: int64
+        publisherId:
+          type: integer
+          format: int64
+        seriesId:
+          type: integer
+          format: int64
+    PublisherDTO:
+      type: object
+      properties:
+        publisherId:
+          type: integer
+          format: int64
+        publisherName:
+          type: string
+        publisherOriginCountry:
+          type: string
+        publisherOriginCity:
+          type: string
+        publisherNumberOfBooks:
+          type: integer
+          format: int32
+        publisherBooks:
+          type: array
+          items:
+            type: string
+    BookDTO:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+        bookTitle:
+          type: string
+        bookRelease:
+          type: string
+        bookEdition:
+          type: integer
+          format: int32
+        bookIsbn:
+          type: string
+        bookAsin:
+          type: string
+        bookSynopsis:
+          type: string
+        bookPages:
+          type: integer
+          format: int32
+        bookPublisherName:
+          type: string
+        bookSeriesName:
+          type: string
+        bookEntryInSeries:
+          type: integer
+          format: int32
+        bookAuthors:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+    AuthorDTO:
+      type: object
+      properties:
+        authorId:
+          type: integer
+          format: int64
+        authorName:
+          type: string
+        authorFullName:
+          type: string
+        authorYearOfBirth:
+          type: integer
+          format: int32
+        authorYearOfDeath:
+          type: integer
+          format: int32
+        authorNumberOfBooks:
+          type: integer
+          format: int32
+        authorBooks:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
