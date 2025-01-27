@@ -18,29 +18,29 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public List<AuthorDTO> getAllAuthors() {
 
         return authorService.getAllAuthors();
     }
 
-    @GetMapping("/{authorId}")
+    @GetMapping("/search/{authorId}")
     public AuthorDTO getAuthorById(@PathVariable Long authorId) {
         return authorService.getAuthorById(authorId);
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public AuthorDTO saveAuthor(@RequestBody AuthorDTO authorDTO) {
         return authorService.saveAuthor(authorDTO);
     }
 
-    @PatchMapping("/{authorID}")
+    @PatchMapping("/edit/{authorID}")
     public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable Long authorID, @RequestBody AuthorDTO authorDTO) {
         AuthorDTO updatedAuthor = authorService.updateAuthor(authorID, authorDTO);
         return ResponseEntity.ok(updatedAuthor);
     }
 
-    @DeleteMapping("/{authorId}")
+    @DeleteMapping("/delete/{authorId}")
     public void deleteAuthor(@PathVariable Long authorId) {
         authorService.deleteAuthor(authorId);
     }

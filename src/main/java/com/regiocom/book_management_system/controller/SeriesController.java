@@ -17,28 +17,28 @@ public class SeriesController {
         this.seriesService = seriesService;
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public List<SeriesDTO> getAllSeries() {
         return seriesService.getAllSeries();
     }
 
-    @GetMapping("/{seriesId}")
+    @GetMapping("/search/{seriesId}")
     public SeriesDTO getSeries(@PathVariable Long seriesId) {
         return seriesService.getSeriesById(seriesId);
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public SeriesDTO addSeries(@RequestBody SeriesDTO seriesDTO) {
         return seriesService.saveSeries(seriesDTO);
     }
 
-    @PatchMapping("/{seriesId}")
+    @PatchMapping("/edit/{seriesId}")
     public ResponseEntity<SeriesDTO> updateSeries(@PathVariable Long seriesId, @RequestBody SeriesDTO seriesDTO) {
         SeriesDTO updateSeries = seriesService.updateSeries(seriesId, seriesDTO);
         return ResponseEntity.ok(updateSeries);
     }
 
-    @DeleteMapping("/{seriesId}")
+    @DeleteMapping("/delete/{seriesId}")
     public void deleteSeries(@PathVariable Long seriesId) {
         seriesService.deleteSeries(seriesId);
     }

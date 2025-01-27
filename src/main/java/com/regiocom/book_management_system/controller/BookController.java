@@ -2,6 +2,7 @@ package com.regiocom.book_management_system.controller;
 
 import com.regiocom.book_management_system.dto.BookDTO;
 import com.regiocom.book_management_system.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,47 +19,62 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public List<BookDTO> getAllBooks() {
 
         return bookService.getAllBooks();
     }
 
-    @GetMapping("/{bookId}")
-    public BookDTO getBookById(@PathVariable Long bookId) {
+    @GetMapping("/search/by")
+    public ResponseEntity<?> getBookByAny(
+            @RequestParam(required = false) String bookTitle,
+            @RequestParam(required = false) Long bookId,
+            @RequestParam(required = false) Integer bookEdition,
+            @RequestParam(required = false) String bookPublisherName,
+            @RequestParam(required = false)String bookAuthor) {
 
-        return bookService.getBookById(bookId);
+        try {
+            if (bookTitle == null && bookId == null && bookEdition == null && bookPublisherName == null && bookAuthor == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please provide one of either Title, ID, Edition, Publisher Name, or Author");
+            }
+            List<BookDTO> foundBook = bookService.getBookByAny(bookTitle, bookId, bookEdition, bookPublisherName, bookAuthor);
+            return ResponseEntity.status(HttpStatus.OK).body(foundBook);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
-    @PostMapping
+    @GetMapping("/search/for")
+    public ResponseEntity<?> getBookByPubEdiEntry(
+            @RequestParam String bookPublisherName,
+            @RequestParam Integer bookEdition,
+            @RequestParam Integer bookEntryInSeries) {
+
+        try {
+            if (bookPublisherName == null || bookEdition == null || bookEntryInSeries == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please provide all. Publisher Name and Edition and Entry");
+            }
+            List<BookDTO> foundBook = bookService.getBookByPubEdiEntry(bookPublisherName, bookEdition, bookEntryInSeries);
+            return ResponseEntity.status(HttpStatus.OK).body(foundBook);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/new")
     public BookDTO saveBook(@RequestBody BookDTO bookDTO) {
         return bookService.saveBook(bookDTO);
     }
 
-    @PatchMapping("/{bookId}")
+    @PatchMapping("/edit/{bookId}")
     public ResponseEntity<BookDTO> updateBook(@PathVariable Long bookId, @RequestBody BookDTO bookDTO) {
         BookDTO updatedBook = bookService.updateBook(bookId, bookDTO);
         return ResponseEntity.ok(updatedBook);
     }
 
-    @DeleteMapping("/{bookId}")
+    @DeleteMapping("/delete/{bookId}")
     public void deleteBook(@PathVariable Long bookId) {
         bookService.deleteBook(bookId);
     }
 
-//    @PostMapping
-//    public Book addBook(@RequestBody Book book) {
-//        return bookService.saveBook(book);
-//    }
-//
-//    @PutMapping("/{bookId}")
-//    public Book updateBook(@RequestBody Book book, @PathVariable Long bookId) {
-//        book.setBookId(bookId);
-//        return bookService.updateBook(book);
-//    }
-//
-//    @DeleteMapping("/{bookId}")
-//    public void deleteBook(@RequestBody Book book, @PathVariable Long bookId) {
-//        bookService.deleteBook(bookId);
-//    }
 }

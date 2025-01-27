@@ -38,13 +38,13 @@ public class HelloWorld {
     @EventListener
     public void fillTablesIfEmpty(ApplicationReadyEvent event) {
         if (bookRepository.count() <= 3) {
-            if (bookRepository.findByBookTitle("The Lord of the Rings") == null) {
+            if (bookRepository.findByBookTitle("The Lord of the Rings").isEmpty()) {
                 fillTable.insertBookOne();
             }
-            if (bookRepository.findByBookTitle("A Dance with Dragons") == null) {
+            if (bookRepository.findByBookTitle("A Dance with Dragons").isEmpty()) {
                 fillTable.insertBookTwo();
             }
-            if (bookRepository.findByBookTitle("Harry Potter and the Order of the Phoenix") == null) {
+            if (bookRepository.findByBookTitle("Harry Potter and the Order of the Phoenix").isEmpty()) {
                 fillTable.insertBookThree();
             }
         }

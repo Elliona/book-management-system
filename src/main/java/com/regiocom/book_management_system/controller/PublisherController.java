@@ -17,28 +17,28 @@ public class PublisherController {
         this.publisherService = publisherService;
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public List<PublisherDTO> getAllPublishers() {
         return publisherService.getAllPublishers();
     }
 
-    @GetMapping("/{publisherId}")
+    @GetMapping("/search/{publisherId}")
     public PublisherDTO getPublisherById(@PathVariable long publisherId) {
         return publisherService.getPublisherById(publisherId);
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public PublisherDTO savePublisher(@RequestBody PublisherDTO publisherDTO) {
         return publisherService.savePublisher(publisherDTO);
     }
 
-    @PatchMapping("/{publisherId}")
+    @PatchMapping("/edit/{publisherId}")
     public ResponseEntity<PublisherDTO> updatePublisher(@PathVariable long publisherId, @RequestBody PublisherDTO publisherDTO) {
         PublisherDTO updatedPublisher = publisherService.updatePublisher(publisherId, publisherDTO);
         return ResponseEntity.ok(updatedPublisher);
     }
 
-    @DeleteMapping("/{publisherId}")
+    @DeleteMapping("/delete/{publisherId}")
     public void deletePublisher(@PathVariable long publisherId) {
         publisherService.deletePublisher(publisherId);
     }

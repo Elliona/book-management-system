@@ -26,10 +26,61 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    public BookDTO getBookById(Long bookId) {
-        return bookRepository.findById(bookId)
+    public List<BookDTO> getBookByAny(String bookTitle, Long bookId, Integer bookEdition, String bookPublisherName, String bookAuthor) {
+        if (bookTitle != null) {
+            List<Book> books = bookRepository.findByBookTitle(bookTitle);
+            if (books.isEmpty()) {
+                throw new RuntimeException("No book found with title: " + bookTitle);
+            }
+            return books.stream()
+                    .map(bookMapper::bookToBookDTO)
+                    .collect(Collectors.toList());
+        } else if (bookId != null) {
+            List<Book> books = bookRepository.findByBookId(bookId);
+            if (books.isEmpty()) {
+                throw new RuntimeException("No book found with id: " + bookId);
+            }
+            return books.stream()
+                    .map(bookMapper::bookToBookDTO)
+                    .collect(Collectors.toList());
+        } else if (bookEdition != null) {
+            List<Book> books = bookRepository.findByBookEdition(bookEdition);
+            if (books.isEmpty()) {
+                throw new RuntimeException("No book found with edition: " + bookEdition);
+            }
+            return books.stream()
+                    .map(bookMapper::bookToBookDTO)
+                    .collect(Collectors.toList());
+        } else if (bookPublisherName != null) {
+            List<Book> books = bookRepository.findByPublisher_PublisherName(bookPublisherName);
+            if (books.isEmpty()) {
+                throw new RuntimeException("No book found with publisher: " + bookPublisherName);
+            }
+            return books.stream()
+                    .map(bookMapper::bookToBookDTO)
+                    .collect(Collectors.toList());
+        } else if (bookAuthor != null) {
+          List<Book> books = bookRepository.findByAuthors_AuthorName(bookAuthor);
+          if (books.isEmpty()) {
+              throw new RuntimeException("No book found with author: " + bookAuthor);
+          }
+            return books.stream()
+                    .map(bookMapper::bookToBookDTO)
+                    .collect(Collectors.toList());
+        } else {
+            throw new RuntimeException("Book not Found");
+        }
+    }
+
+    public List<BookDTO> getBookByPubEdiEntry(String bookPublisherName, Integer bookEdition, Integer bookEntryInSeries) {
+        List <Book> books = bookRepository.findByPublisher_PublisherNameAndBookEditionAndBookEntryInSeries(bookPublisherName, bookEdition, bookEntryInSeries);
+        if (books.isEmpty()) {
+
+            throw new RuntimeException("No book was found");
+        }
+        return books.stream()
                 .map(bookMapper::bookToBookDTO)
-                .orElseThrow(() -> new RuntimeException("Book not Found"));
+                .collect(Collectors.toList());
     }
 
     public BookDTO saveBook(BookDTO bookDTO) {
@@ -43,31 +94,6 @@ public class BookService {
                 .orElseThrow(() -> new RuntimeException("Book not Found"));
 
         bookMapper.updateBookFromDTO(bookDTO, existingBook);
-//        if (bookDTO.getBookTitle() != null) {
-//            existingBook.setBookTitle(bookDTO.getBookTitle());
-//        }
-//        if (bookDTO.getBookRelease() != null) {
-//            existingBook.setBookRelease(bookDTO.getBookRelease());
-//        }
-//        if (bookDTO.getBookEdition() != null) {
-//            existingBook.setBookEdition(bookDTO.getBookEdition());
-//        }
-//        if (bookDTO.getBookIsbn() != null) {
-//            existingBook.setBookIsbn(bookDTO.getBookIsbn());
-//        }
-//        if (bookDTO.getBookAsin() != null) {
-//            existingBook.setBookAsin(bookDTO.getBookAsin());
-//        }
-//        if (bookDTO.getBookSynopsis() != null) {
-//            existingBook.setBookSynopsis(bookDTO.getBookSynopsis());
-//        }
-//        if (bookDTO.getBookPages() != null) {
-//            existingBook.setBookPages(bookDTO.getBookPages());
-//        }
-//        if (bookDTO.getBookEntryInSeries() != null) {
-//            existingBook.setBookEntryInSeries(bookDTO.getBookEntryInSeries());
-//        }
-
         Book updatedBook = bookRepository.save(existingBook);
         return bookMapper.bookToBookDTO(updatedBook);
     }
