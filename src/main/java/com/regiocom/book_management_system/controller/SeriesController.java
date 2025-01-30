@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api/series")
+@RequestMapping(value = "/api/series", produces = {"application/json"})
 public class SeriesController {
 
     private final SeriesService seriesService;

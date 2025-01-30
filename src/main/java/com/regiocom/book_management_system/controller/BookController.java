@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/api/books")
+@RequestMapping(value = "/api/books", produces = {"application/json"})
 public class BookController {
 
     private final BookService bookService;
@@ -19,13 +20,13 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/search")
+    @GetMapping(value = "/search", produces =  {"application/json"})
     public List<BookDTO> getAllBooks() {
 
         return bookService.getAllBooks();
     }
 
-    @GetMapping("/search/by")
+    @GetMapping(value = "/search/by", produces =  {"application/json"})
     public ResponseEntity<?> getBookByAny(
             @RequestParam(required = false) String bookTitle,
             @RequestParam(required = false) Long bookId,

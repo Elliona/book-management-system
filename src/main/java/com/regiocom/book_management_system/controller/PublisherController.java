@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api/publisher")
+@RequestMapping(value = "/api/publisher", produces = {"application/json"})
 public class PublisherController {
 
     private final PublisherService publisherService;

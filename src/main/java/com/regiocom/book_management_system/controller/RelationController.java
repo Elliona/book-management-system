@@ -5,8 +5,9 @@ import com.regiocom.book_management_system.service.RelationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/api/relation")
+@RequestMapping(value = "/api/relation", produces = {"application/json"})
 public class RelationController {
     private final RelationService relationService;
 
