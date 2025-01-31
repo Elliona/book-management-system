@@ -40,7 +40,7 @@ public class PublisherService {
 
     public PublisherDTO updatePublisher(Long publisherId, PublisherDTO publisherDTO) {
         Publisher existingPublisher = publisherRepository.findById(publisherId)
-        .orElseThrow(() -> new RuntimeException("Publisher not found"));
+                .orElseThrow(() -> new RuntimeException("Publisher not found"));
 
         publisherMapper.updatePublisherFromDTO(publisherDTO, existingPublisher);
         Publisher updatedPublisher = publisherRepository.save(existingPublisher);

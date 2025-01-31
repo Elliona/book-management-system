@@ -9,15 +9,14 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
-        nullValuePropertyMappingStrategy =  NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AuthorMapper {
 
-//    author to authorDTO stuff
+    //    author to authorDTO stuff
     AuthorDTO authorToAuthorDTO(Author author);
 
     default Set<String> mapBooksToAuthors(Set<Book> books) {
@@ -29,6 +28,7 @@ public interface AuthorMapper {
 //    authorDTO to author stuff
 
     Author authorDTOToAuthor(AuthorDTO authorDTO);
+
     @Mapping(target = "authorId", ignore = true)
     void updateAuthorFromDTO(AuthorDTO authorDTO, @MappingTarget Author author);
 

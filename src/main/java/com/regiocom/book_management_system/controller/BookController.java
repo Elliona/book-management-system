@@ -2,6 +2,11 @@ package com.regiocom.book_management_system.controller;
 
 import com.regiocom.book_management_system.dto.BookDTO;
 import com.regiocom.book_management_system.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +25,19 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping(value = "/search", produces =  {"application/json"})
+    @GetMapping(value = "/search", produces = {"application/json"})
     public List<BookDTO> getAllBooks() {
 
         return bookService.getAllBooks();
     }
 
-    @GetMapping(value = "/search/by", produces =  {"application/json"})
+    @GetMapping(value = "/search/by", produces = {"application/json"})
     public ResponseEntity<?> getBookByAny(
             @RequestParam(required = false) String bookTitle,
             @RequestParam(required = false) Long bookId,
             @RequestParam(required = false) Integer bookEdition,
             @RequestParam(required = false) String bookPublisherName,
-            @RequestParam(required = false)String bookAuthor) {
+            @RequestParam(required = false) String bookAuthor) {
 
         try {
             if (bookTitle == null && bookId == null && bookEdition == null && bookPublisherName == null && bookAuthor == null) {
@@ -45,6 +50,13 @@ public class BookController {
         }
     }
 
+    @Operation(
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "OK", content = {
+                            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = BookDTO.class)))
+                    })
+            }
+    )
     @GetMapping("/search/for")
     public ResponseEntity<?> getBookByPubEdiEntry(
             @RequestParam String bookPublisherName,

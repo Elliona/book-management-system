@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
-        nullValuePropertyMappingStrategy =  NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PublisherMapper {
 
-//    publisher to publisherDTO stuff
+    //    publisher to publisherDTO stuff
     PublisherDTO publisherToPublisherDTO(Publisher publisher);
 
     default List<String> mapBooksToPublisher(List<Book> books) {
@@ -25,8 +25,9 @@ public interface PublisherMapper {
                 .collect(Collectors.toList());
     }
 
-//    publisherDTO to publisher stuff
+    //    publisherDTO to publisher stuff
     Publisher publisherDTOToPublisher(PublisherDTO publisherDTO);
+
     @Mapping(target = "publisherId", ignore = true)
     void updatePublisherFromDTO(PublisherDTO publisherDTO, @MappingTarget Publisher publisher);
 

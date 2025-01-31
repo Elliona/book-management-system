@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",
-        nullValuePropertyMappingStrategy =  NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface SeriesMapper {
 
-//        series to seriesDTO stuff
+    //        series to seriesDTO stuff
     SeriesDTO seriesToSeriesDTO(Series series);
 
     default List<String> mapBooksToSeries(List<Book> books) {
@@ -25,8 +25,9 @@ public interface SeriesMapper {
                 .collect(Collectors.toList());
     }
 
-//    seriesDTO to series stuff
+    //    seriesDTO to series stuff
     Series seriesDTOToSeries(SeriesDTO seriesDTO);
+
     @Mapping(target = "seriesId", ignore = true)
     void updateSeriesFromDTO(SeriesDTO seriesDTO, @MappingTarget Series series);
 

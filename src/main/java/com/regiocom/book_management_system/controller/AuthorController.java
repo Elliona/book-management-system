@@ -1,7 +1,6 @@
 package com.regiocom.book_management_system.controller;
 
 import com.regiocom.book_management_system.dto.AuthorDTO;
-import com.regiocom.book_management_system.repository.AuthorRepository;
 import com.regiocom.book_management_system.service.AuthorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

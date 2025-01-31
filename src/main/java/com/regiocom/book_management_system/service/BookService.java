@@ -60,10 +60,10 @@ public class BookService {
                     .map(bookMapper::bookToBookDTO)
                     .collect(Collectors.toList());
         } else if (bookAuthor != null) {
-          List<Book> books = bookRepository.findByAuthors_AuthorName(bookAuthor);
-          if (books.isEmpty()) {
-              throw new RuntimeException("No book found with author: " + bookAuthor);
-          }
+            List<Book> books = bookRepository.findByAuthors_AuthorName(bookAuthor);
+            if (books.isEmpty()) {
+                throw new RuntimeException("No book found with author: " + bookAuthor);
+            }
             return books.stream()
                     .map(bookMapper::bookToBookDTO)
                     .collect(Collectors.toList());
@@ -73,7 +73,7 @@ public class BookService {
     }
 
     public List<BookDTO> getBookByPubEdiEntry(String bookPublisherName, Integer bookEdition, Integer bookEntryInSeries) {
-        List <Book> books = bookRepository.findByPublisher_PublisherNameAndBookEditionAndBookEntryInSeries(bookPublisherName, bookEdition, bookEntryInSeries);
+        List<Book> books = bookRepository.findByPublisher_PublisherNameAndBookEditionAndBookEntryInSeries(bookPublisherName, bookEdition, bookEntryInSeries);
         if (books.isEmpty()) {
 
             throw new RuntimeException("No book was found");

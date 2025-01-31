@@ -29,9 +29,7 @@ public class HelloWorld {
         this.publisherRepository = publisherRepository;
         this.seriesRepository = seriesRepository;
 
-        System.out.println("Hello World");
 
-        System.out.println("second World!");
     }
 
 
@@ -82,6 +80,6 @@ public class HelloWorld {
             }
         }
 
-
+        System.out.println("Hello World");
     }
 }
